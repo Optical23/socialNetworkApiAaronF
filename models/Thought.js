@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
-const opts = { toJSON: { virtual: true, getters: true }, id: false};
+const opts = { toJSON: { virtuals: true, getters: true }, id: false};
 
 const ReactionSchema = new Schema(
     {
