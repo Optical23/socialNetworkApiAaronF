@@ -11,11 +11,11 @@ const ReactionSchema = new Schema(
         },
         reactionBody: {
             type: String,
-            require: 'Reaction body is Required'
+            require: true
         },
         username: {
             type: String,
-            require: 'Username is Required'
+            require: true
         },
         createdAt: {
             type: Date,

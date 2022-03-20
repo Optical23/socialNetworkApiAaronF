@@ -1,3 +1,4 @@
+const res = require('express/lib/response');
 const { Thought, User } = require('../models');
 const { db } = require('../models/User');
 
@@ -69,6 +70,30 @@ const thoughtController = {
         .then(dbThoughtData => res.json(dbThoughtData))
         .catch(err => res.json(err));
     },
+
+    //create reaction
+    createReaction({ params, body }, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.id },
+            {$addToSet: { reactions: body} },
+            {new: true, runValidators: true}
+        )
+        .then(dbThoughtData => {
+            res.json(dbThoughtData);
+        })
+        .catch(err => res.json(err));
+    },
+
+    deleteReaction({ params, body }, res) {
+        Thought.findOneAndUpdate(
+            { _id: params.id },
+            {$pull: { reactions: { reactionId: body.reactionId} } }
+        )
+        .then(dbThoughtData => {
+            res.json(dbThoughtData);
+        })
+        .catch(err => res.json(err));
+    }
 }
 
 module.exports = thoughtController
